@@ -6,9 +6,7 @@ namespace todoproject1.Common.Models
     {
         public int IdEmployee { get; set; }
 
-        public DateTime EntryTime { get; set; }
-
-        public DateTime OutTime { get; set; }
+        public DateTime Time2Work { get; set; }
 
         public char Type { get; set; }
 

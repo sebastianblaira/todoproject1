@@ -5,14 +5,12 @@ using System.Text;
 
 namespace todoproject1.Functions.Entities
 {
-    public class TodoEntity : TableEntity
+    public class TodoEntity2 : TableEntity
     {
         public int IdEmployee { get; set; }
 
-        public DateTime Time2Work { get; set; }
+        public DateTime TimeAllWork { get; set; }
 
-        public char Type { get; set; }
-
-        public bool Consolidated { get; set; }
+        public TimeSpan TimeWorked { get; set; }
     }
 }
