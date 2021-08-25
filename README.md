@@ -1,1 +1,2 @@
-# todoproject1
+# TodoProject1
+this is an example for azure function
