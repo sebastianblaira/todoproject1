@@ -4,7 +4,7 @@ using System.Text;
 
 namespace todoproject1.Common.Models
 {
-    class Todo2
+    public class Todo2
     {
         public int IdEmployee { get; set; }
 
