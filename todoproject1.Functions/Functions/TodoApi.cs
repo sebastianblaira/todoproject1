@@ -33,23 +33,14 @@ namespace todoproject1.Functions.Functions
             //to read body message
             Todo todo = JsonConvert.DeserializeObject<Todo>(requestBody);
 
-            //if the task dont have a description
+            //if the task dont have a idemployee
 
-            if (string.IsNullOrEmpty(todo?.IdEmployee.ToString()) || string.IsNullOrEmpty(todo?.Types.ToString()))
+            if (string.IsNullOrEmpty(todo?.IdEmployee.ToString()) && string.IsNullOrEmpty(todo?.Types.ToString()))
             {
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "The request must be have a IdEmployee or the type (0: entry, 1: exit) ."
-                });
-            }
-
-            if (string.IsNullOrEmpty(todo?.Types.ToString()))
-            {
-                return new BadRequestObjectResult(new Response
-                {
-                    IsSuccess = false,
-                    Message = "The request must be have the time of entry or exit."
+                    Message = "The request must be have a IdEmployee the type of (0: entry, 1: exit)."
                 });
             }
 
@@ -57,7 +48,7 @@ namespace todoproject1.Functions.Functions
             TodoEntity todoEntity = new TodoEntity
             {
                 IdEmployee = todo.IdEmployee,
-                Time2Work = DateTime.UtcNow,
+                Time2Work = todo.Time2Work,
                 Types = todo.Types,
                 Consolidated = false,
                 ETag = "*",
