@@ -11,7 +11,7 @@ namespace todoproject1.Functions.Entities
 
         public DateTime Time2Work { get; set; }
 
-        public char Type { get; set; }
+        public int Types { get; set; }
 
         public bool Consolidated { get; set; }
     }
