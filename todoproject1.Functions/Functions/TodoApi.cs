@@ -35,12 +35,21 @@ namespace todoproject1.Functions.Functions
 
             //if the task dont have a description
 
-            if (string.IsNullOrEmpty(todo?.IdEmployee.ToString()))
+            if (string.IsNullOrEmpty(todo?.IdEmployee.ToString()) || string.IsNullOrEmpty(todo?.Types.ToString()))
             {
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "The request must be have a IdEmployee."
+                    Message = "The request must be have a IdEmployee or the type (0: entry, 1: exit) ."
+                });
+            }
+
+            if (string.IsNullOrEmpty(todo?.Types.ToString()))
+            {
+                return new BadRequestObjectResult(new Response
+                {
+                    IsSuccess = false,
+                    Message = "The request must be have the time of entry or exit."
                 });
             }
 
@@ -49,7 +58,7 @@ namespace todoproject1.Functions.Functions
             {
                 IdEmployee = todo.IdEmployee,
                 Time2Work = DateTime.UtcNow,
-                Types = 1,
+                Types = todo.Types,
                 Consolidated = false,
                 ETag = "*",
                 PartitionKey = "TODO",
