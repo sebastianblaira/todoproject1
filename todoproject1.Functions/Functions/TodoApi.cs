@@ -16,8 +16,8 @@ namespace todoproject1.Functions.Functions
 {
     public static class TodoApi
     {
-        [FunctionName(nameof(CreateTodo))]
-        public static async Task<IActionResult> CreateTodo(
+        [FunctionName(nameof(CreateEmployee))]
+        public static async Task<IActionResult> CreateEmployee(
             //first request
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "todo")] HttpRequest req,
             [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
@@ -69,8 +69,8 @@ namespace todoproject1.Functions.Functions
             });
         }
 
-        [FunctionName(nameof(UpdateTodo))]
-        public static async Task<IActionResult> UpdateTodo(
+        [FunctionName(nameof(UpdateEmployee))]
+        public static async Task<IActionResult> UpdateEmployee(
         [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "todo/{id}")] HttpRequest req,
         [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
         string id,
@@ -124,8 +124,8 @@ namespace todoproject1.Functions.Functions
             });
         }
 
-        [FunctionName(nameof(GetAllTodos))]
-        public static async Task<IActionResult> GetAllTodos(
+        [FunctionName(nameof(GetAllEmployees))]
+        public static async Task<IActionResult> GetAllEmployees(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todo")] HttpRequest req,
             [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
             ILogger log)
@@ -147,8 +147,8 @@ namespace todoproject1.Functions.Functions
             });
         }
 
-        [FunctionName(nameof(GetTodoById))]
-        public static IActionResult GetTodoById(
+        [FunctionName(nameof(GetEmployeeById))]
+        public static IActionResult GetEmployeeById(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todo/{id}")] HttpRequest req,
             [Table("todo", "TODO", "{id}", Connection = "AzureWebJobsStorage")] TodoEntity todoEntity,
             string id,
@@ -176,8 +176,8 @@ namespace todoproject1.Functions.Functions
             });
         }
 
-        [FunctionName(nameof(DeleteTodo))]
-        public static async Task<IActionResult> DeleteTodo(
+        [FunctionName(nameof(DeleteEmployee))]
+        public static async Task<IActionResult> DeleteEmployee(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "todo/{id}")] HttpRequest req,
             [Table("todo", "TODO", "{id}", Connection = "AzureWebJobsStorage")] TodoEntity todoEntity,
             [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
