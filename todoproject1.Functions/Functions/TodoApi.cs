@@ -34,7 +34,7 @@ namespace todoproject1.Functions.Functions
             Todo todo = JsonConvert.DeserializeObject<Todo>(requestBody);
 
             //if the task dont have a idemployee
-            if (string.IsNullOrEmpty(todo?.IdEmployee.ToString()))
+            if (todo.IdEmployee == 0)
             {
                 return new BadRequestObjectResult(new Response
                 {
@@ -76,7 +76,7 @@ namespace todoproject1.Functions.Functions
         string id,
         ILogger log)
         {
-            log.LogInformation($"Update for todo: {id}, received.");
+            log.LogInformation($"Update for employee: {id}, received.");
 
             //receive parameters
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -90,7 +90,7 @@ namespace todoproject1.Functions.Functions
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "Todo not found."
+                    Message = "employee not found."
                 });
             }
 
@@ -154,7 +154,7 @@ namespace todoproject1.Functions.Functions
             string id,
             ILogger log)
         {
-            log.LogInformation($"Get todo by id: {id}, received.");
+            log.LogInformation($"Get employee by id: {id}, received.");
 
             if (todoEntity == null)
             {
@@ -184,14 +184,14 @@ namespace todoproject1.Functions.Functions
             string id,
             ILogger log)
         {
-            log.LogInformation($"Delete todo: {id}, received.");
+            log.LogInformation($"Delete employee: {id}, received.");
 
             if (todoEntity == null)
             {
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "Todo not found."
+                    Message = "Employee not found."
                 });
             }
 
