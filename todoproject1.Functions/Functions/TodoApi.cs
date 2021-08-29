@@ -18,23 +18,16 @@ namespace todoproject1.Functions.Functions
     {
         [FunctionName(nameof(CreateEmployee))]
         public static async Task<IActionResult> CreateEmployee(
-            //first request
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "todo")] HttpRequest req,
             [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
             ILogger log)
         {
-            log.LogInformation("Recieved a new todo.");
+            log.LogInformation("Received a new todo.");
 
-            string name = req.Query["name"];
-
-            //to read all
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            //convert body to task
-            //to read body message
             Todo todo = JsonConvert.DeserializeObject<Todo>(requestBody);
 
-            //if the task dont have a idemployee
-            if (todo.IdEmployee == 0)
+            if (string.IsNullOrEmpty(todo?.IdEmployee.ToString()))
             {
                 return new BadRequestObjectResult(new Response
                 {

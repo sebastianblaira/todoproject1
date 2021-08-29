@@ -50,10 +50,26 @@ namespace todoproject1.Functions.Functions
                         countConsolidated++;
                         TableOperation insertEmployees = TableOperation.Insert(todoEntity2);
                         await todoTable2.ExecuteAsync((insertEmployees));
+                        await UpdateTable1(todoTable, entryEmployee.RowKey);
+                        await UpdateTable1(todoTable, exitEmployee.RowKey);
                     } 
                 }
             }
             log.LogInformation($"Add to consolidated: {countConsolidated} employees at: {DateTime.Now}");
+        }
+        public static async Task UpdateTable1(
+            [Table("todo", "{id}", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
+            string id)
+        {
+            TableOperation findOperation = TableOperation.Retrieve<TodoEntity>("TODO", id);
+            TableResult findResult = await todoTable.ExecuteAsync(findOperation);
+
+            //update consolidated state at table1 (todo)
+            TodoEntity todoEntity = (TodoEntity)findResult.Result;
+            todoEntity.Consolidated = true;
+
+            TableOperation addOperation = TableOperation.Replace(todoEntity);
+            await todoTable.ExecuteAsync(addOperation);
         }
     }
 }

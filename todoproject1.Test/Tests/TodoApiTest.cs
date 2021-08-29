@@ -21,11 +21,13 @@ namespace todoproject1.Test.Tests
         public async void CreateEmployee_Should_Return_200()
         {
             // Arrenge
-            MockCloudTableTodos mockEmployee = new MockCloudTableTodos(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
-            Todo EmployeeRequest = TestFactory.GetTodoRequest();
-            DefaultHttpRequest request = TestFactory.CreateHttpRequest(EmployeeRequest);
+            MockCloudTableTodos mockTodos = new MockCloudTableTodos(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
+            Todo todoRequest = TestFactory.GetTodoRequest();
+            DefaultHttpRequest request = TestFactory.CreateHttpRequest(todoRequest);
+
             // Act
-            IActionResult response = await TodoApi.CreateEmployee(request, mockEmployee, logger);
+            IActionResult response = await TodoApi.CreateEmployee(request, mockTodos, logger);
+
             // Assert
             OkObjectResult result = (OkObjectResult)response;
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
@@ -67,12 +69,14 @@ namespace todoproject1.Test.Tests
             MockCloudTableTodos mockEmployee = new MockCloudTableTodos(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
             Todo EmployeeRequest = TestFactory.GetTodoRequest();
             Guid EmployeeId = Guid.NewGuid();
+            TodoEntity todoEntiy = TestFactory.GetTodoEntity();
             DefaultHttpRequest request = TestFactory.CreateHttpRequest(EmployeeId, EmployeeRequest);
             // Act
-            IActionResult response = await TodoApi.GetEmployeeById(request,  mockEmployee, EmployeeId.ToString(), logger);
+            IActionResult response = await TodoApi.DeleteEmployee(request, todoEntiy,  mockEmployee, EmployeeId.ToString(), logger);
             // Assert
             OkObjectResult result = (OkObjectResult)response;
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
         }
+
     }
 }
