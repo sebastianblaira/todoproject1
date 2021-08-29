@@ -12,7 +12,7 @@ namespace todoproject1.Functions.Functions
     {
         [FunctionName("ScheduledFunction")]
         public static async Task Run(
-            [TimerTrigger("0 */ 2 * * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer,
             [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
             [Table("todo2", Connection = "AzureWebJobsStorage")] CloudTable todoTable2,
             ILogger log)
@@ -47,20 +47,13 @@ namespace todoproject1.Functions.Functions
                             PartitionKey = "TODO2",
                             RowKey = Guid.NewGuid().ToString()//table index, no repeat
                         };
-                        await insertConsolidatedTable(todoEntity2, todoTable2);
                         countConsolidated++;
+                        TableOperation insertEmployees = TableOperation.Insert(todoEntity2);
+                        await todoTable.ExecuteAsync((insertEmployees));
                     } 
                 }
             }
-
             log.LogInformation($"Add to consolidated: {countConsolidated} employees at: {DateTime.Now}");
-        }
-        public static async Task insertConsolidatedTable(
-            TodoEntity2 todoEntity2,
-            [Table("todo2", Connection = "AzureWebJobsStorage")] CloudTable todoTable)
-        {
-            TableOperation insertEmployees = TableOperation.Insert(todoEntity2);
-            await todoTable.ExecuteAsync(insertEmployees);
         }
     }
 }
