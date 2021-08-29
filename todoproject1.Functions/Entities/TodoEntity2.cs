@@ -11,6 +11,6 @@ namespace todoproject1.Functions.Entities
 
         public DateTime TimeAllWork { get; set; }
 
-        public TimeSpan TimeWorked { get; set; }
+        public int TimeWorked { get; set; }
     }
 }
