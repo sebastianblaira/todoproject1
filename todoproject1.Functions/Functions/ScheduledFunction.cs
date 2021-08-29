@@ -49,7 +49,7 @@ namespace todoproject1.Functions.Functions
                         };
                         countConsolidated++;
                         TableOperation insertEmployees = TableOperation.Insert(todoEntity2);
-                        await todoTable.ExecuteAsync((insertEmployees));
+                        await todoTable2.ExecuteAsync((insertEmployees));
                     } 
                 }
             }
