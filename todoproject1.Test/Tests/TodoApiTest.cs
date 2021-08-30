@@ -54,9 +54,26 @@ namespace todoproject1.Test.Tests
             // Arrenge
             MockCloudTableTodos mockEmployee = new MockCloudTableTodos(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
             Todo EmployeeRequest = TestFactory.GetTodoRequest();
+            TodoEntity todoEntiy = TestFactory.GetTodoEntity();
             DefaultHttpRequest request = TestFactory.CreateHttpRequest(EmployeeRequest);
             // Act
             IActionResult response = await TodoApi.GetAllEmployees(request, mockEmployee, logger);
+            // Assert
+            OkObjectResult result = (OkObjectResult)response;
+            Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async void GetEmployeeById_Should_Return_200()
+        {
+            // Arrenge
+            MockCloudTableTodos mockEmployee = new MockCloudTableTodos(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
+            Todo EmployeeRequest = TestFactory.GetTodoRequest();
+            Guid EmployeeId = Guid.NewGuid();
+            TodoEntity todoEntiy = TestFactory.GetTodoEntity();
+            DefaultHttpRequest request = TestFactory.CreateHttpRequest(EmployeeId, EmployeeRequest);
+            // Act
+            IActionResult response = await TodoApi.GetEmployeeById(request, todoEntiy, EmployeeId.ToString(), logger);
             // Assert
             OkObjectResult result = (OkObjectResult)response;
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);

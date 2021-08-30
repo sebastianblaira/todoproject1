@@ -22,7 +22,7 @@ namespace todoproject1.Functions.Functions
             [Table("todo", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
             ILogger log)
         {
-            log.LogInformation("Received a new todo.");
+            log.LogInformation("Received a new employee.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             Todo todo = JsonConvert.DeserializeObject<Todo>(requestBody);
@@ -141,23 +141,24 @@ namespace todoproject1.Functions.Functions
         }
 
         [FunctionName(nameof(GetEmployeeById))]
-        public static IActionResult GetEmployeeById(
+        public static async Task<IActionResult> GetEmployeeById(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todo/{id}")] HttpRequest req,
             [Table("todo", "TODO", "{id}", Connection = "AzureWebJobsStorage")] TodoEntity todoEntity,
             string id,
             ILogger log)
         {
-            log.LogInformation($"Get employee by id: {id}, received.");
+            log.LogInformation($"Get employees by id: {id}, received.");
 
             if (todoEntity == null)
             {
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "Employee not found."
+                    Message = "Todo not found."
                 });
             }
 
+            //string message = $"Todo : {id}, retrieved"; esto es lo mismo que lo de abajo
             string message = $"Todo : {todoEntity.RowKey}, retrieved";
             log.LogInformation(message);
 

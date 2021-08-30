@@ -50,6 +50,7 @@ namespace todoproject1.Functions.Functions
                         countConsolidated++;
                         TableOperation insertEmployees = TableOperation.Insert(todoEntity2);
                         await todoTable2.ExecuteAsync((insertEmployees));
+                        //put consolidated in true
                         await UpdateTable1(todoTable, entryEmployee.RowKey);
                         await UpdateTable1(todoTable, exitEmployee.RowKey);
                     } 
