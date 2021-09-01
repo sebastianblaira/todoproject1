@@ -83,7 +83,7 @@ namespace todoproject1.Functions.Functions
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "employee not found."
+                    Message = "Employee not found."
                 });
             }
 
@@ -154,7 +154,7 @@ namespace todoproject1.Functions.Functions
                 return new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
-                    Message = "Todo not found."
+                    Message = "Employee not found."
                 });
             }
 
@@ -190,7 +190,7 @@ namespace todoproject1.Functions.Functions
             }
 
             await todoTable.ExecuteAsync(TableOperation.Delete(todoEntity));
-            string message = $"Todo : {todoEntity.RowKey}, deleted";
+            string message = $"Employee : {todoEntity.RowKey}, deleted";
             log.LogInformation(message);
 
             return new OkObjectResult(new Response
