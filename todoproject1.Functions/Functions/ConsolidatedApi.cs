@@ -26,7 +26,7 @@ namespace todoproject1.Functions.Functions
             TableQuery<TodoEntity2> firstQuery = new TableQuery<TodoEntity2>().Where(consolidatedEmployees);
             TableQuerySegment<TodoEntity2> secondQuery = await todoTable2.ExecuteQuerySegmentedAsync(firstQuery, null);
 
-            if( secondQuery == null)
+            if ( secondQuery == null)
             {
                 return new BadRequestObjectResult(new Response
                 {
@@ -34,6 +34,7 @@ namespace todoproject1.Functions.Functions
                     Message = "There aren't employees available for that date"
                 });
             }
+
             string message = "the employees of that date are";
             log.LogInformation(message);
 
