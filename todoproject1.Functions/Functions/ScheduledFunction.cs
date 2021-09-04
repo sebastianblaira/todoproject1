@@ -57,6 +57,9 @@ namespace todoproject1.Functions.Functions
                                 TableOperation addOperation = TableOperation.Replace(todoConsolidated);
                                 await todoTable2.ExecuteAsync(addOperation);
                                 exist = 1;
+                                countConsolidated++;
+                                await UpdateTable1(todoTable, entryEmployee.RowKey);
+                                await UpdateTable1(todoTable, exitEmployee.RowKey);
                                 break;
                             }
                             else
