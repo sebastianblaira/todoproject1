@@ -85,10 +85,6 @@ namespace todoproject1.Functions.Functions
                             await UpdateTable1(todoTable, entryEmployee.RowKey);
                             await UpdateTable1(todoTable, exitEmployee.RowKey);
                         }
-                        else
-                        {
-                            break;
-                        }
                     } 
                 }
             }
