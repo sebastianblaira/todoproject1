@@ -78,7 +78,7 @@ namespace todoproject1.Functions.Functions
                             countConsolidated++;
                             TableOperation insertEmployees = TableOperation.Insert(todoEntity2);
                             await todoTable2.ExecuteAsync((insertEmployees));
-                            //put consolidated in true
+                            //put consolidated in true 
                             await UpdateTable1(todoTable, entryEmployee.RowKey);
                             await UpdateTable1(todoTable, exitEmployee.RowKey);
                         }
@@ -105,35 +105,5 @@ namespace todoproject1.Functions.Functions
             TableOperation addOperation = TableOperation.Replace(todoEntity);
             await todoTable.ExecuteAsync(addOperation);
         }
-
-        //public double async Task UpdateIfIdExist(
-        //    [Table("todo2", "{id}", "{hours}", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
-        //    string id, DateTime date, int hours)
-        //{
-        //    TableOperation findOperation = TableOperation.Retrieve<TodoEntity>("TODO2", id);
-        //    TableResult findResult = await todoTable.ExecuteAsync(findOperation);
-
-        //    //update consolidated state at table1 (todo)
-        //    TodoEntity2 todoEntity2 = (TodoEntity2)findResult.Result;
-        //    if (todoEntity2.IdEmployee.Equals(id))
-        //    {
-        //TodoEntity2 todoEntityTwo = new TodoEntity2
-        //{
-        //    IdEmployee = Convert.ToInt32(id),
-        //    TimeAllWork = date,
-        //    TimeWorked = todoEntity2.TimeWorked + hours,
-        //    ETag = "*",
-        //    PartitionKey = "TODO2",
-        //    RowKey = Guid.NewGuid().ToString()//table index, no repeat
-        //};
-        //TableOperation addOperation = TableOperation.Replace(todoEntity2);
-        //await todoTable.ExecuteAsync(addOperation);
-        //        return 1;
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
     }
 }

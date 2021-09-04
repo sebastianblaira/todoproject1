@@ -54,7 +54,6 @@ namespace todoproject1.Test.Tests
             // Arrenge
             MockCloudTableTodos mockEmployee = new MockCloudTableTodos(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
             Todo EmployeeRequest = TestFactory.GetTodoRequest();
-            TodoEntity todoEntiy = TestFactory.GetTodoEntity();
             DefaultHttpRequest request = TestFactory.CreateHttpRequest(EmployeeRequest);
             // Act
             IActionResult response = await TodoApi.GetAllEmployees(request, mockEmployee, logger);
